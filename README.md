@@ -15,10 +15,17 @@ docker compose version
 
 After that, you need to create `.env` file in `backend/web` folder. You can use `.env_example` as an example of the file structure.
 
-Then just run docker and you are good to go
+Then just move into `backend/web` and run docker and you are good to go
 
 ```
+cd backend/web
 docker compose up --build
+```
+
+To verify every works, you can enter the following link and it should return ok
+
+```
+http://localhost:8000/api/health/
 ```
 
 Some useful commands:
