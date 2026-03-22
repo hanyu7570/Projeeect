@@ -2,9 +2,9 @@
 
 This project is a centralized web-based system designed to manage and visualize ground support and rockbolt testing data. It allows engineers to query test results across different bolt products, filter by specific parameters, and overlay force-displacement curves to compare performances.
 
-# How to run the backend
+# How to run this project
 
-To run the backend, ensure that you have both Docker and Docker Compose installed and working.
+To run this project, ensure that you have both Docker and Docker Compose installed and working.
 
 You can check the two of them with the following commands:
 
@@ -13,19 +13,19 @@ docker --version
 docker compose version
 ```
 
-After that, you need to create `.env` file in `backend/web` folder. You can use `.env_example` as an example of the file structure.
+After that, you need to create `.env` file in 3 locations: this folder, `backend/web` and `frontend/`. You can use `.env_example` present in all of the 3 folders for reference.
 
-Then just move into `backend/web` and run docker and you are good to go
+Then just run docker and you are good to go
 
 ```
-cd backend/web
 docker compose up --build
 ```
 
-To verify every works, you can enter the following link and it should return ok
+To verify everything works, you can enter the following routes
 
 ```
 http://localhost:8000/api/health/
+http://localhost:5173/
 ```
 
 Some useful commands:
@@ -35,10 +35,13 @@ docker compose up --build -d
 
 # Follow logs
 docker compose logs -f web
+docker compose logs -f db
+docker compose logs -f frontend
 
 # Open a shell in the container
 docker compose exec web sh
 docker compose exec db sh
+docker compose exec frontend sh
 
 # Run Django management commands
 docker compose exec web python manage.py makemigrations

@@ -1,0 +1,12 @@
+# Python
+backend/web/venv/
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+
+# Node
+frontend/node_modules/
+
+# Secrets and version control
+**/.env
+.git/
