@@ -4,7 +4,7 @@ services:
   db:
     image: mariadb:11-jammy
     restart: unless-stopped
-    env_file: .env
+    env_file: ./backend/web/.env
     environment:
       MARIADB_DATABASE:      ${DB_NAME}
       MARIADB_USER:          ${DB_USER}
@@ -19,15 +19,32 @@ services:
 
   web:
     build:
-      context: .
+      context: ./backend/web
+      dockerfile: Dockerfile
       target: runtime
     restart: unless-stopped
-    env_file: .env
+    env_file: ./backend/web/.env
     depends_on:
       db:
         condition: service_healthy
+    expose:
+      - "8000"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: ${APP_ENV:-dev}
+    restart: unless-stopped
+    volumes:
+      - ./frontend/src:/app/src      # only mounted in dev, ignored in prod
     ports:
-      - "8000:8000"
+      - "80:80"                      # prod (Nginx)
+      - "5173:5173"                  # dev (Vite HMR)
+    environment:
+      - APP_ENV=${APP_ENV:-dev}
+    depends_on:
+      - web
 
 volumes:
   mariadb_data:
