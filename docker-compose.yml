@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   db:
     image: mariadb:11-jammy
@@ -24,6 +22,8 @@ services:
       target: runtime
     restart: unless-stopped
     env_file: ./backend/web/.env
+    volumes:
+      - ./backend/web:/app
     depends_on:
       db:
         condition: service_healthy
