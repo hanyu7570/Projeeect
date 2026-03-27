@@ -43,6 +43,9 @@ docker compose exec web sh
 docker compose exec db sh
 docker compose exec frontend sh
 
+# Seed data (add --flush at the end to clear all data)
+docker compose exec web python manage.py seed
+
 # Run Django management commands
 docker compose exec web python manage.py makemigrations
 docker compose exec web python manage.py migrate
